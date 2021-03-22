@@ -3,6 +3,7 @@ $bg-color-secondary : rgba(196, 196, 196, 0.35);
 $ft-color-primary : black;
 
 $hi-size : 33vh;
+$welcome-animation-step-duration : 0.5s;
 
 *{
     margin: 0;
@@ -19,8 +20,10 @@ body,html, main{
     &--m5vh{
         margin: 5vh ;
         height: 90vh;
+        transition-duration: $welcome-animation-step-duration ;
     }
 }
+
 
 .title_menu{
     width: 100%;
@@ -29,12 +32,14 @@ body,html, main{
     background: $bg-color-primary;
     &--w50{
         width: 50%;
+        transition-duration: $welcome-animation-step-duration ;
     }
     &__content{
         position: absolute;
         top:50%;
         left:50%;
         transform: translateX(-50%) translateY(-50%);
+        
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
@@ -42,6 +47,7 @@ body,html, main{
         color: $ft-color-primary;
 
         &--vertical{
+            transition-duration: $welcome-animation-step-duration ;
             transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
         }
     }

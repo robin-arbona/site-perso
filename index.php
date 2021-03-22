@@ -17,13 +17,14 @@
         <nav></nav>
     </header>
     <main>
-        <section class="section section--m5vh">
-            <div class="title_menu title_menu--w50">
-                <p class="title_menu__content title_menu__content--vertical">Hi,</p>
+        <section class="section">
+            <div class="title_menu">
+                <p class="title_menu__content">Hi,</p>
             </div>
         </section>
     </main>
     <footer></footer>
+    <script src="public/js/script.js" type="text/javascript"></script>
 </body>
 
 </html>
