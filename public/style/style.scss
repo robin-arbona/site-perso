@@ -1,0 +1,50 @@
+$bg-color-primary :#ef9a9a;
+$bg-color-secondary : rgba(196, 196, 196, 0.35);
+$ft-color-primary : black;
+
+$hi-size : 33vh;
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body,html, main{
+    height: 100%;
+}
+
+.section {
+    width: 100vw;
+    height: 100vh;
+    &--m5vh{
+        margin: 5vh ;
+        height: 90vh;
+    }
+}
+
+.title_menu{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: $bg-color-primary;
+    &--w50{
+        width: 50%;
+    }
+    &__content{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translateX(-50%) translateY(-50%);
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: $hi-size;
+        color: $ft-color-primary;
+
+        &--vertical{
+            transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
+        }
+    }
+
+}
+
