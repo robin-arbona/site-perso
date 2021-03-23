@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  font-family: Roboto;
+  color: black;
+  font-size: 2.5vmin;
+}
+
+li {
+  list-style: none;
+}
+
 body, html, main {
   height: 100%;
   overflow: hidden;
@@ -47,6 +58,16 @@ body, html, main {
   transition-duration: 0.5s;
   transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
 }
+.title_menu__arrow_down {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  width: 15vh;
+  height: 15vh;
+  right: 5vh;
+  bottom: 5vh;
+}
 
 .main_content {
   background-color: rgba(196, 196, 196, 0.35);
@@ -69,6 +90,45 @@ article {
   align-items: center;
 }
 
+.navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.navbar_main {
+  position: absolute;
+  width: 100%;
+  height: 5vh;
+  letter-spacing: 0.5vmin;
+}
+.navbar_main__logo {
+  padding-left: 5vh;
+  width: 30%;
+}
+.navbar_main__link {
+  position: absolute;
+  padding-right: 10vh;
+  right: 0;
+}
+.navbar_main__link li {
+  margin-left: 5vh;
+}
+.navbar_lang {
+  position: absolute;
+  right: 0;
+  width: 5vh;
+}
+.navbar_lang__link {
+  height: 5vh;
+  position: absolute;
+  transform: rotateZ(90deg) translateY(-100%);
+  transform-origin: top left;
+  top: 10vh;
+}
+.navbar_lang__link li {
+  margin-right: 1vmin;
+}
+
 h1 {
   font-size: 7.3333333333vmin;
 }
@@ -79,4 +139,8 @@ h1 {
 
 .item_point {
   color: #ef9a9a;
+}
+
+a.selected {
+  font-weight: bold;
 }

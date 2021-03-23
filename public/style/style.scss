@@ -5,13 +5,28 @@ $ft-color-secondary : rgba(0, 0, 0, 0.5);
 $ft-family-primary : Roboto;
 
 $hi-size : 33vmin;
+$margin-size : 5vh;
+$a-font-size : 2.5vmin;
+$main-window-size : 90vh;
+
 $welcome-animation-step-duration : 0.5s;
 
-// Reset style
+// Reset 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    font-family: $ft-family-primary;
+    color:$ft-color-primary;
+    font-size: $a-font-size;
+}
+
+li{
+    list-style: none;
 }
 
 body,html, main{
@@ -25,14 +40,13 @@ body,html, main{
     height: 100vh;
     &--m5vh{
         width: auto;
-        margin: 5vh ;
-        height: 90vh;
+        margin: $margin-size;
+        height: $main-window-size;
         transition-duration: $welcome-animation-step-duration ;
         display: flex;
         flex-wrap: wrap;
     }
 }
-
 
 .title_menu{
     width: 100%;
@@ -60,7 +74,16 @@ body,html, main{
             transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
         }
     }
-
+    &__arrow_down{
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity $welcome-animation-step-duration linear;
+        width: 3 * $margin-size;
+        height: 3 * $margin-size;
+        right: $margin-size;
+        bottom: $margin-size;
+    }
 }
 
 .main_content{
@@ -79,9 +102,48 @@ article{
     font-family: $ft-family-primary;
     font-style: normal;
     font-weight: bold;
-    padding: 5vh;
+    padding: $margin-size;
     display: flex;
     align-items: center;
+}
+
+.navbar{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    &_main{
+        position: absolute;
+        width: 100%;
+        height: $margin-size;
+        letter-spacing: $a-font-size/5;
+        &__logo{
+            padding-left:$margin-size;
+            width:30%;
+        }
+        &__link{
+            position: absolute;
+            padding-right: 2*$margin-size;
+            right: 0;
+            & li{
+                margin-left: $margin-size;
+            }
+        }
+    }
+    &_lang{
+        position: absolute;
+        right: 0;
+        width: $margin-size;
+        &__link{
+            height: $margin-size;
+            position: absolute;
+            transform: rotateZ(90deg) translateY(-100%);
+            transform-origin: top left;
+            top: 2*$margin-size;
+            & li{
+                margin-right: 1vmin;
+            }
+        }
+    }
 }
 
 //Items Style
@@ -93,4 +155,7 @@ h1{
 }
 .item_point{
     color:$bg-color-primary;
+}
+a.selected{
+    font-weight: bold;
 }

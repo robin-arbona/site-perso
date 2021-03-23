@@ -13,16 +13,29 @@
 
 <body>
     <header>
-        <nav></nav>
-        <nav></nav>
+        <nav class="navbar navbar_main">
+            <div class="navbar navbar_main__logo">
+                <a class="selected" href="#welcome">ARBONA Robin</a>
+            </div>
+            <ul class="navbar navbar_main__link">
+                <li><a href="#about">about</a></li>
+                <li><a href="#portfolio">portfolio</a></li>
+                <li><a href="#contact">contact</a></li>
+            </ul>
+        </nav>
+        <nav class="navbar navbar_lang">
+            <ul class="navbar navbar_lang__link">
+                <li><a class="selected" href="#en">EN.</a></li>
+                <li><a href="#fr">FR.</a></li>
+                <li><a href="#es">ES.</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <section class="section">
             <div class="title_menu">
                 <p class="title_menu__content">Hi,</p>
-                <!-- <p class="title_menu__content">about</p>
-                <p class="title_menu__content">portfolio</p>
-                <p class="title_menu__content">contact</p> -->
+                <img class="title_menu__arrow_down" src="public/img/arrow_down.svg" alt="White down arrow">
             </div>
             <div class="main_content">
                 <article class="welcome">
