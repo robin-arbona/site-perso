@@ -1,10 +1,12 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body, html, main {
   height: 100%;
+  overflow: hidden;
 }
 
 .section {
@@ -12,9 +14,12 @@ body, html, main {
   height: 100vh;
 }
 .section--m5vh {
+  width: auto;
   margin: 5vh;
   height: 90vh;
   transition-duration: 0.5s;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .title_menu {
@@ -35,10 +40,43 @@ body, html, main {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 33vh;
+  font-size: 33vmin;
   color: black;
 }
 .title_menu__content--vertical {
   transition-duration: 0.5s;
   transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
+}
+
+.main_content {
+  background-color: rgba(196, 196, 196, 0.35);
+  height: 100%;
+  width: 0%;
+  overflow: hidden;
+}
+.main_content--w50 {
+  width: 50%;
+  transition-duration: 0.5s;
+}
+
+article {
+  height: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  padding: 5vh;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  font-size: 7.3333333333vmin;
+}
+
+.item_hitag {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.item_point {
+  color: #ef9a9a;
 }

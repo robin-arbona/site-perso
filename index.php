@@ -20,6 +20,19 @@
         <section class="section">
             <div class="title_menu">
                 <p class="title_menu__content">Hi,</p>
+                <!-- <p class="title_menu__content">about</p>
+                <p class="title_menu__content">portfolio</p>
+                <p class="title_menu__content">contact</p> -->
+            </div>
+            <div class="main_content">
+                <article class="welcome">
+                    <h1>
+                        <span class="item_hitag">&#60;hitag&#62;</span><br />I'm robin arbona, freelance web developer<span class="item_point">.<br /></span><span class="item_hitag">&#60;/hitag&#62;</span>
+                    </h1>
+                </article>
+                <article class="about"></article>
+                <article class="portfolio"></article>
+                <article class="contact"></article>
             </div>
         </section>
     </main>

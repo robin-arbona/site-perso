@@ -1,6 +1,11 @@
 const section = document.querySelector('.section')
 const titleMenu = document.querySelector('.title_menu')
 const titleMenuContent = document.querySelector('.title_menu__content')
+const mainContent = document.querySelector('.main_content')
+
+// Welcome animation timing
+let startTime = 1000;
+let stepTime = 500;
 
 document.addEventListener('DOMContentLoaded',()=>{
     welcomeAnimation();
@@ -9,11 +14,12 @@ document.addEventListener('DOMContentLoaded',()=>{
 function welcomeAnimation(){
     setTimeout(()=>{
         titleMenuContent.classList.add('title_menu__content--vertical')
-    },1000)
+    },startTime)
     setTimeout(()=>{
-        section.classList.replace('section','section--m5vh')
-    },1500)
+        section.classList.add('section','section--m5vh')
+    },startTime+= stepTime)
     setTimeout(()=>{
         titleMenu.classList.add('title_menu--w50')
-    },2000)
+        mainContent.classList.add('main_content--w50')
+    },startTime+= stepTime)
 }

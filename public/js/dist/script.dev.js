@@ -3,6 +3,10 @@
 var section = document.querySelector('.section');
 var titleMenu = document.querySelector('.title_menu');
 var titleMenuContent = document.querySelector('.title_menu__content');
+var mainContent = document.querySelector('.main_content'); // Welcome animation timing
+
+var startTime = 1000;
+var stepTime = 500;
 document.addEventListener('DOMContentLoaded', function () {
   welcomeAnimation();
 });
@@ -10,11 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
 function welcomeAnimation() {
   setTimeout(function () {
     titleMenuContent.classList.add('title_menu__content--vertical');
-  }, 1000);
+  }, startTime);
   setTimeout(function () {
-    section.classList.replace('section', 'section--m5vh');
-  }, 1500);
+    section.classList.add('section', 'section--m5vh');
+  }, startTime += stepTime);
   setTimeout(function () {
     titleMenu.classList.add('title_menu--w50');
-  }, 2000);
+    mainContent.classList.add('main_content--w50');
+  }, startTime += stepTime);
 }
