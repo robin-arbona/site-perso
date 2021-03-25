@@ -35,7 +35,8 @@
         <section class="section">
             <div class="title_menu">
                 <p class="title_menu__content">Hi,</p>
-                <img class="title_menu__arrow_down" src="public/img/arrow_down.svg" alt="White down arrow">
+                <img class="title_menu__arrow title_menu__arrow--up" src="public/img/arrow.svg" alt="White up arrow">
+                <img class="title_menu__arrow title_menu__arrow--down" src="public/img/arrow.svg" alt="White down arrow">
             </div>
             <div class="main_content">
                 <article class="welcome">

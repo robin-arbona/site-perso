@@ -6,6 +6,7 @@ $ft-family-primary : Roboto;
 
 $hi-size : 33vmin;
 $margin-size : 5vh;
+$margin-size-resp : 5vmin;
 $a-font-size : 2.5vmin;
 $main-window-size : 90vh;
 
@@ -74,16 +75,21 @@ body,html, main{
             transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
         }
     }
-    &__arrow_down{
+    &__arrow{
         position: absolute;
         visibility: hidden;
         opacity: 0;
         transition: visibility 0s, opacity $welcome-animation-step-duration linear;
-        width: 3 * $margin-size;
-        height: 3 * $margin-size;
-        right: $margin-size;
-        bottom: $margin-size;
+        width: 2 * $margin-size-resp;
+        height: 2 * $margin-size-resp;
+        right: $margin-size-resp;
+        bottom: $margin-size-resp;
+        &--up{
+            transform: rotateZ(180deg);
+            left: $margin-size-resp;
+        }
     }
+
 }
 
 .main_content{

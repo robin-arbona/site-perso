@@ -58,15 +58,19 @@ body, html, main {
   transition-duration: 0.5s;
   transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
 }
-.title_menu__arrow_down {
+.title_menu__arrow {
   position: absolute;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
-  width: 15vh;
-  height: 15vh;
-  right: 5vh;
-  bottom: 5vh;
+  width: 10vmin;
+  height: 10vmin;
+  right: 5vmin;
+  bottom: 5vmin;
+}
+.title_menu__arrow--up {
+  transform: rotateZ(180deg);
+  left: 5vmin;
 }
 
 .main_content {
