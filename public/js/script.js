@@ -9,7 +9,8 @@ const article = document.querySelector('.article')
 
 
 // Configuration variable
-const sections = ['welcome','about','portfolio','contact']
+const sectionsName = ['Hi,','about','portfolio','contact']
+const sectionsFile = ['hi','about','portfolio','contact']
 let sectionsIndex = 0;
 
 // Welcome animation timing
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 async function init(){
     await welcomeAnimation()
-    getView(sections[sectionsIndex])
+    getView(sectionsFile[sectionsIndex])
     titleMenuArrowDown.addEventListener('click',()=>{
         sectionsIndex++
         navGoTo(sectionsIndex)
@@ -66,24 +67,43 @@ function show(element){
 }
 
 function navGoTo(index){
+    //handle fast click
+    if(index < 0){
+        index = 0
+    }else if(index > (sectionsName.length-1)){
+        index=sectionsName.length-1
+    }
+    sectionsIndex = index
+    //Normal way
     switch (index) {
-        case 0: 
-            hide(titleMenuArrowUp) 
+        case 0 : 
+            hide(titleMenuArrowUp)
+            titleMenu.classList.replace('title_menu--w25','title_menu--w50')
+            mainContent.classList.replace('main_content--w75','main_content--w50')
+            titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
+            
             break
-        case (sections.length-1): 
+        case (sectionsName.length-1): 
             hide(titleMenuArrowDown) 
             break
         default: 
             show(titleMenuArrowUp) 
             show(titleMenuArrowDown)
+            titleMenu.classList.replace('title_menu--w50','title_menu--w25')
+            titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
+            mainContent.classList.replace('main_content--w50','main_content--w75')
             break;
     }
-    getView(sections[index])
-    
+    getView(sectionsFile[index])
+    changeContent(titleMenuContent,sectionsName[index])
+}
+
+function changeContent(element,content){
+    element.textContent=content;
 }
 
 function getView(viewName){
-    let pathView='view/'+ viewName + '.php'
+    let pathView='view/'+ viewName.toLowerCase() + '.php'
     fetch(pathView)
     .then((response)=>response.text())
     .then((content)=>{

@@ -4,7 +4,7 @@ $ft-color-primary : black;
 $ft-color-secondary : rgba(0, 0, 0, 0.5);
 $ft-family-primary : Roboto;
 
-$hi-size : 33vmin;
+$hi-size : 30vmin;
 $margin-size : 5vh;
 $margin-size-resp : 5vmin;
 $a-font-size : 2.5vmin;
@@ -58,6 +58,10 @@ body,html, main{
         width: 50%;
         transition-duration: $welcome-animation-step-duration ;
     }
+    &--w25{
+        width: 25%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
     &__content{
         position: absolute;
         top:50%;
@@ -75,6 +79,19 @@ body,html, main{
             transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
         }
     }
+    &__nav{
+        font-family: $ft-family-primary;
+        font-style: normal;
+        font-weight: bold;
+        font-size: $hi-size/2;
+        color: $ft-color-primary;
+        transform: rotateZ(-90deg) translateY(50%);
+        transform-origin: bottom left;
+        position: relative;
+        left: 50%;
+        top: 50%;
+    }
+
     &__arrow{
         position: absolute;
         visibility: hidden;
@@ -99,6 +116,10 @@ body,html, main{
     overflow: hidden;
     &--w50{
         width: 50%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
+    &--w75{
+        width: 75%;
         transition-duration: $welcome-animation-step-duration ;
     }
 }

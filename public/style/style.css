@@ -43,6 +43,10 @@ body, html, main {
   width: 50%;
   transition-duration: 0.5s;
 }
+.title_menu--w25 {
+  width: 25%;
+  transition-duration: 0.5s;
+}
 .title_menu__content {
   position: absolute;
   top: 50%;
@@ -51,12 +55,24 @@ body, html, main {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 33vmin;
+  font-size: 30vmin;
   color: black;
 }
 .title_menu__content--vertical {
   transition-duration: 0.5s;
   transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
+}
+.title_menu__nav {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15vmin;
+  color: black;
+  transform: rotateZ(-90deg) translateY(50%);
+  transform-origin: bottom left;
+  position: relative;
+  left: 50%;
+  top: 50%;
 }
 .title_menu__arrow {
   position: absolute;
@@ -81,6 +97,10 @@ body, html, main {
 }
 .main_content--w50 {
   width: 50%;
+  transition-duration: 0.5s;
+}
+.main_content--w75 {
+  width: 75%;
   transition-duration: 0.5s;
 }
 
@@ -135,7 +155,7 @@ body, html, main {
 }
 
 h1 {
-  font-size: 7.3333333333vmin;
+  font-size: 6.6666666667vmin;
 }
 
 .item_tag {
