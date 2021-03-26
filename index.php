@@ -39,14 +39,8 @@
                 <img class="title_menu__arrow title_menu__arrow--down" src="public/img/arrow.svg" alt="White down arrow">
             </div>
             <div class="main_content">
-                <article class="welcome">
-                    <h1>
-                        <span class="item_hitag">&#60;hitag&#62;</span><br />I'm robin arbona, freelance web developer<span class="item_point">.<br /></span><span class="item_hitag">&#60;/hitag&#62;</span>
-                    </h1>
+                <article class="article">
                 </article>
-                <article class="about"></article>
-                <article class="portfolio"></article>
-                <article class="contact"></article>
             </div>
         </section>
     </main>

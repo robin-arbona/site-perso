@@ -6,7 +6,8 @@ var titleMenu = document.querySelector('.title_menu');
 var titleMenuContent = document.querySelector('.title_menu__content');
 var titleMenuArrowDown = document.querySelector('.title_menu__arrow--down');
 var titleMenuArrowUp = document.querySelector('.title_menu__arrow--up');
-var mainContent = document.querySelector('.main_content'); // Configuration variable
+var mainContent = document.querySelector('.main_content');
+var article = document.querySelector('.article'); // Configuration variable
 
 var sections = ['welcome', 'about', 'portfolio', 'contact'];
 var sectionsIndex = 0; // Welcome animation timing
@@ -26,6 +27,7 @@ function init() {
           return regeneratorRuntime.awrap(welcomeAnimation());
 
         case 2:
+          getView(sections[sectionsIndex]);
           titleMenuArrowDown.addEventListener('click', function () {
             sectionsIndex++;
             navGoTo(sectionsIndex);
@@ -35,7 +37,7 @@ function init() {
             navGoTo(sectionsIndex);
           });
 
-        case 4:
+        case 5:
         case "end":
           return _context.stop();
       }
@@ -89,4 +91,15 @@ function navGoTo(index) {
       show(titleMenuArrowDown);
       break;
   }
+
+  getView(sections[index]);
+}
+
+function getView(viewName) {
+  var pathView = 'view/' + viewName + '.php';
+  fetch(pathView).then(function (response) {
+    return response.text();
+  }).then(function (content) {
+    article.innerHTML = content;
+  });
 }

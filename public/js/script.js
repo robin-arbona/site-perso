@@ -5,6 +5,8 @@ const titleMenuContent = document.querySelector('.title_menu__content')
 const titleMenuArrowDown = document.querySelector('.title_menu__arrow--down')
 const titleMenuArrowUp = document.querySelector('.title_menu__arrow--up')
 const mainContent = document.querySelector('.main_content')
+const article = document.querySelector('.article')
+
 
 // Configuration variable
 const sections = ['welcome','about','portfolio','contact']
@@ -20,6 +22,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 async function init(){
     await welcomeAnimation()
+    getView(sections[sectionsIndex])
     titleMenuArrowDown.addEventListener('click',()=>{
         sectionsIndex++
         navGoTo(sectionsIndex)
@@ -64,8 +67,26 @@ function show(element){
 
 function navGoTo(index){
     switch (index) {
-        case 0: hide(titleMenuArrowUp); break;
-        case (sections.length-1): hide(titleMenuArrowDown); break;
-        default: show(titleMenuArrowUp); show(titleMenuArrowDown); break;
+        case 0: 
+            hide(titleMenuArrowUp) 
+            break
+        case (sections.length-1): 
+            hide(titleMenuArrowDown) 
+            break
+        default: 
+            show(titleMenuArrowUp) 
+            show(titleMenuArrowDown)
+            break;
     }
+    getView(sections[index])
+    
+}
+
+function getView(viewName){
+    let pathView='view/'+ viewName + '.php'
+    fetch(pathView)
+    .then((response)=>response.text())
+    .then((content)=>{
+        article.innerHTML=content
+    })
 }
