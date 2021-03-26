@@ -109,10 +109,12 @@ body, html, main {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
+  font-size: 5vmin;
   padding: 5vh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .navbar {
@@ -172,4 +174,9 @@ a.selected {
 
 article p {
   width: 100%;
+}
+
+.about li {
+  list-style: "        <> ";
+  list-style-position: inside;
 }

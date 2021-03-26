@@ -129,10 +129,12 @@ body,html, main{
     font-family: $ft-family-primary;
     font-style: normal;
     font-weight: bold;
+    font-size: $hi-size/6;
     padding: $margin-size;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 
 .navbar{
@@ -189,4 +191,8 @@ a.selected{
 }
 article p{
     width: 100%;
+}
+.about li{
+    list-style: '        <> ';
+    list-style-position: inside;
 }
