@@ -10,6 +10,7 @@ const titleMenuArrowUp = document.querySelector('.title_menu__arrow--up')
 const mainContent = document.querySelector('.main_content')
 const article = document.querySelector('.article')
 
+
 //_______________________
 // Configuration variables
 //_______________________
@@ -21,6 +22,8 @@ let sectionsIndex = 0;
 // Welcome animation timing
 let startTime = 1000
 let stepTime = 500
+let scrollInterval = 1300
+let scrollAllowed = true
 
 document.addEventListener('DOMContentLoaded',()=>{
     init()
@@ -31,16 +34,28 @@ async function init(){
     getView(sectionsFile[sectionsIndex])
     titleMenuArrowDown.addEventListener('click',async ()=>{
         sectionsIndex++
-        await navGoTo(sectionsIndex)
-        getView(sectionsFile[sectionsIndex])
-        changeContent(titleMenuContent,sectionsName[sectionsIndex])
+        changePage(sectionsIndex)
     })
     titleMenuArrowUp.addEventListener('click',async ()=>{
         sectionsIndex--
-        await navGoTo(sectionsIndex)
-        getView(sectionsFile[sectionsIndex])
-        changeContent(titleMenuContent,sectionsName[sectionsIndex])
+        changePage(sectionsIndex)
     })
+    section.querySelectorAll('a').forEach(element=>{
+        if((sectionsFile.indexOf(element.target))>=0){
+            element.addEventListener('click',async (e)=>{
+                e.preventDefault()
+                sectionsIndex = sectionsFile.indexOf(e.target.target)
+                changePage(sectionsIndex)
+            })
+        }
+    })
+    section.addEventListener('mousewheel',scrollHandeler)
+}
+
+async function changePage(){
+    await navGoTo(sectionsIndex)
+    getView(sectionsFile[sectionsIndex])
+    changeContent(titleMenuContent,sectionsName[sectionsIndex])
 }
 
 function welcomeAnimation(){
@@ -77,6 +92,8 @@ function show(element){
 
 function navGoTo(index){
     return new Promise((resolve,reject)=>{
+        hide(titleMenuContent)
+
         //handle fast click
         if(index < 0){
             index = 0
@@ -84,28 +101,47 @@ function navGoTo(index){
             index=sectionsName.length-1
         }
         sectionsIndex = index
+        boldAhref(sectionsIndex)
         //Normal way
-        switch (index) {
-            case 0 : 
-                hide(titleMenuArrowUp)
-                titleMenu.classList.replace('title_menu--w25','title_menu--w50')
-                mainContent.classList.replace('main_content--w75','main_content--w50')
-                titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
-                
-                break
-            case (sectionsName.length-1): 
-                hide(titleMenuArrowDown) 
-                break
-            default: 
-                show(titleMenuArrowUp) 
-                show(titleMenuArrowDown)
-                titleMenu.classList.replace('title_menu--w50','title_menu--w25')
-                titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
-                mainContent.classList.replace('main_content--w50','main_content--w75')
-                break;
-        }
-        setTimeout(()=>{resolve()},300)
+        
+        setTimeout(()=>{
+            switch (index) {
+                case 0 : 
+                    transforMenu('big')
+                    hide(titleMenuArrowUp)
+                    break
+                case (sectionsName.length-1): 
+                    transforMenu('small')
+                    show(titleMenuArrowUp) 
+                    hide(titleMenuArrowDown) 
+                    break
+                default: 
+                    transforMenu('small')
+                    show(titleMenuArrowUp) 
+                    show(titleMenuArrowDown)
+                    break;
+            }
+        },stepTime)
+        setTimeout(()=>{
+            show(titleMenuContent)
+            resolve()
+        },stepTime*2)
     })
+}
+
+function transforMenu(size = 'small'){
+    switch (size) {
+        case 'small':
+            titleMenu.classList.replace('title_menu--w50','title_menu--w25')
+            titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
+            mainContent.classList.replace('main_content--w50','main_content--w75')
+            break;
+        default:
+            titleMenu.classList.replace('title_menu--w25','title_menu--w50')
+            mainContent.classList.replace('main_content--w75','main_content--w50')
+            titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
+            break;
+    }
 }
 
 function changeContent(element,content){
@@ -119,4 +155,29 @@ function getView(viewName){
     .then((content)=>{
         article.innerHTML=content
     })
+}
+
+function boldAhref(index){
+    document.querySelectorAll('a').forEach(element=>{
+        element.classList.remove('selected')
+        if((element.target == sectionsFile[index])>0){
+            element.classList.add('selected')
+        }
+    })
+}
+
+function scrollHandeler(e){
+    if(!scrollAllowed){
+        return
+    }
+    scrollAllowed = false;
+    if(e.deltaY>0){
+        sectionsIndex++
+    } else {
+        sectionsIndex--
+    }
+    changePage(sectionsIndex)
+    setTimeout(()=>{
+        scrollAllowed = true;
+    },scrollInterval)
 }

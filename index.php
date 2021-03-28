@@ -15,12 +15,12 @@
     <header>
         <nav class="navbar navbar_main">
             <div class="navbar navbar_main__logo">
-                <a class="selected" href="#welcome">ARBONA Robin</a>
+                <a target="hi" class="selected" href="#hi">ARBONA Robin</a>
             </div>
             <ul class="navbar navbar_main__link">
-                <li><a href="#about">about</a></li>
-                <li><a href="#portfolio">portfolio</a></li>
-                <li><a href="#contact">contact</a></li>
+                <li><a target="about" href="#about">about</a></li>
+                <li><a target="portfolio" href="#portfolio">portfolio</a></li>
+                <li><a target="contact" href="#contact">contact</a></li>
             </ul>
         </nav>
         <nav class="navbar navbar_lang">

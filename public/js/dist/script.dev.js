@@ -19,16 +19,18 @@ var sectionsIndex = 0; // Welcome animation timing
 
 var startTime = 1000;
 var stepTime = 500;
+var scrollInterval = 1300;
+var scrollAllowed = true;
 document.addEventListener('DOMContentLoaded', function () {
   init();
 });
 
 function init() {
-  return regeneratorRuntime.async(function init$(_context3) {
+  return regeneratorRuntime.async(function init$(_context4) {
     while (1) {
-      switch (_context3.prev = _context3.next) {
+      switch (_context4.prev = _context4.next) {
         case 0:
-          _context3.next = 2;
+          _context4.next = 2;
           return regeneratorRuntime.awrap(welcomeAnimation());
 
         case 2:
@@ -39,14 +41,9 @@ function init() {
                 switch (_context.prev = _context.next) {
                   case 0:
                     sectionsIndex++;
-                    _context.next = 3;
-                    return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
+                    changePage(sectionsIndex);
 
-                  case 3:
-                    getView(sectionsFile[sectionsIndex]);
-                    changeContent(titleMenuContent, sectionsName[sectionsIndex]);
-
-                  case 5:
+                  case 2:
                   case "end":
                     return _context.stop();
                 }
@@ -59,24 +56,60 @@ function init() {
                 switch (_context2.prev = _context2.next) {
                   case 0:
                     sectionsIndex--;
-                    _context2.next = 3;
-                    return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
+                    changePage(sectionsIndex);
 
-                  case 3:
-                    getView(sectionsFile[sectionsIndex]);
-                    changeContent(titleMenuContent, sectionsName[sectionsIndex]);
-
-                  case 5:
+                  case 2:
                   case "end":
                     return _context2.stop();
                 }
               }
             });
           });
+          section.querySelectorAll('a').forEach(function (element) {
+            if (sectionsFile.indexOf(element.target) >= 0) {
+              element.addEventListener('click', function _callee3(e) {
+                return regeneratorRuntime.async(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        e.preventDefault();
+                        sectionsIndex = sectionsFile.indexOf(e.target.target);
+                        changePage(sectionsIndex);
 
-        case 5:
+                      case 3:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                });
+              });
+            }
+          });
+          section.addEventListener('mousewheel', scrollHandeler);
+
+        case 7:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
+      }
+    }
+  });
+}
+
+function changePage() {
+  return regeneratorRuntime.async(function changePage$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
+
+        case 2:
+          getView(sectionsFile[sectionsIndex]);
+          changeContent(titleMenuContent, sectionsName[sectionsIndex]);
+
+        case 4:
+        case "end":
+          return _context5.stop();
       }
     }
   });
@@ -115,40 +148,60 @@ function show(element) {
 
 function navGoTo(index) {
   return new Promise(function (resolve, reject) {
-    //handle fast click
+    hide(titleMenuContent); //handle fast click
+
     if (index < 0) {
       index = 0;
     } else if (index > sectionsName.length - 1) {
       index = sectionsName.length - 1;
     }
 
-    sectionsIndex = index; //Normal way
-
-    switch (index) {
-      case 0:
-        hide(titleMenuArrowUp);
-        titleMenu.classList.replace('title_menu--w25', 'title_menu--w50');
-        mainContent.classList.replace('main_content--w75', 'main_content--w50');
-        titleMenuContent.classList.replace('title_menu__nav', 'title_menu__content');
-        break;
-
-      case sectionsName.length - 1:
-        hide(titleMenuArrowDown);
-        break;
-
-      default:
-        show(titleMenuArrowUp);
-        show(titleMenuArrowDown);
-        titleMenu.classList.replace('title_menu--w50', 'title_menu--w25');
-        titleMenuContent.classList.replace('title_menu__content', 'title_menu__nav');
-        mainContent.classList.replace('main_content--w50', 'main_content--w75');
-        break;
-    }
+    sectionsIndex = index;
+    boldAhref(sectionsIndex); //Normal way
 
     setTimeout(function () {
+      switch (index) {
+        case 0:
+          transforMenu('big');
+          hide(titleMenuArrowUp);
+          break;
+
+        case sectionsName.length - 1:
+          transforMenu('small');
+          show(titleMenuArrowUp);
+          hide(titleMenuArrowDown);
+          break;
+
+        default:
+          transforMenu('small');
+          show(titleMenuArrowUp);
+          show(titleMenuArrowDown);
+          break;
+      }
+    }, stepTime);
+    setTimeout(function () {
+      show(titleMenuContent);
       resolve();
-    }, 300);
+    }, stepTime * 2);
   });
+}
+
+function transforMenu() {
+  var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'small';
+
+  switch (size) {
+    case 'small':
+      titleMenu.classList.replace('title_menu--w50', 'title_menu--w25');
+      titleMenuContent.classList.replace('title_menu__content', 'title_menu__nav');
+      mainContent.classList.replace('main_content--w50', 'main_content--w75');
+      break;
+
+    default:
+      titleMenu.classList.replace('title_menu--w25', 'title_menu--w50');
+      mainContent.classList.replace('main_content--w75', 'main_content--w50');
+      titleMenuContent.classList.replace('title_menu__nav', 'title_menu__content');
+      break;
+  }
 }
 
 function changeContent(element, content) {
@@ -162,4 +215,33 @@ function getView(viewName) {
   }).then(function (content) {
     article.innerHTML = content;
   });
+}
+
+function boldAhref(index) {
+  document.querySelectorAll('a').forEach(function (element) {
+    element.classList.remove('selected');
+
+    if ((element.target == sectionsFile[index]) > 0) {
+      element.classList.add('selected');
+    }
+  });
+}
+
+function scrollHandeler(e) {
+  if (!scrollAllowed) {
+    return;
+  }
+
+  scrollAllowed = false;
+
+  if (e.deltaY > 0) {
+    sectionsIndex++;
+  } else {
+    sectionsIndex--;
+  }
+
+  changePage(sectionsIndex);
+  setTimeout(function () {
+    scrollAllowed = true;
+  }, scrollInterval);
 }
