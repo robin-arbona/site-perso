@@ -113,20 +113,26 @@ function changePage() {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.next = 2;
-          return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
+          return regeneratorRuntime.awrap(Promise.all([hide(article), hide(titleMenuContent)]));
 
         case 2:
           _context5.next = 4;
-          return regeneratorRuntime.awrap(getView(sectionsFile[sectionsIndex]));
+          return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
 
         case 4:
+          _context5.next = 6;
+          return regeneratorRuntime.awrap(getView(sectionsFile[sectionsIndex]));
+
+        case 6:
+          changeContent(titleMenuContent, sectionsName[sectionsIndex]);
+          show(article);
+          show(titleMenuContent);
+
           if (sectionsFile[sectionsIndex] == 'portfolio') {
             initModal();
           }
 
-          changeContent(titleMenuContent, sectionsName[sectionsIndex]);
-
-        case 6:
+        case 10:
         case "end":
           return _context5.stop();
       }
@@ -154,54 +160,66 @@ function welcomeAnimation() {
 }
 
 function hide(element) {
-  element.style.transition = "visibility ".concat(stepTime / 1000, "s, opacity ").concat(stepTime / 1000, "s linear");
-  element.style.visibility = 'hidden';
-  element.style.opacity = 0;
+  return new Promise(function (resolve, reject) {
+    element.style.transition = "visibility ".concat(stepTime / 2 / 1000, "s, opacity ").concat(stepTime / 2 / 1000, "s linear");
+    element.style.visibility = 'hidden';
+    element.style.opacity = 0;
+    setTimeout(function () {
+      resolve();
+    }, stepTime / 2);
+  });
 }
 
 function show(element) {
-  element.style.transition = "visibility 0s, opacity ".concat(stepTime / 1000, "s linear");
+  element.style.transition = "visibility 0s, opacity ".concat(stepTime / 2 / 1000, "s linear");
   element.style.visibility = 'visible';
   element.style.opacity = 1;
 }
 
 function navGoTo(index) {
-  return new Promise(function (resolve, reject) {
-    hide(titleMenuContent); //handle fast click
-
-    if (index < 0) {
-      index = 0;
-    } else if (index > sectionsName.length - 1) {
-      index = sectionsName.length - 1;
-    }
-
-    sectionsIndex = index;
-    boldAhref(sectionsIndex); //Normal way
-
-    setTimeout(function () {
-      switch (index) {
+  return regeneratorRuntime.async(function navGoTo$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
         case 0:
-          transforMenu('big');
-          hide(titleMenuArrowUp);
+          //handle fast click
+          if (index < 0) {
+            index = 0;
+          } else if (index > sectionsName.length - 1) {
+            index = sectionsName.length - 1;
+          }
+
+          sectionsIndex = index;
+          boldAhref(sectionsIndex); //Normal way
+
+          _context6.t0 = index;
+          _context6.next = _context6.t0 === 0 ? 6 : _context6.t0 === sectionsName.length - 1 ? 10 : 14;
           break;
 
-        case sectionsName.length - 1:
+        case 6:
+          _context6.next = 8;
+          return regeneratorRuntime.awrap(hide(titleMenuArrowUp));
+
+        case 8:
+          transforMenu('big');
+          return _context6.abrupt("break", 18);
+
+        case 10:
           transforMenu('small');
           show(titleMenuArrowUp);
           hide(titleMenuArrowDown);
-          break;
+          return _context6.abrupt("break", 18);
 
-        default:
+        case 14:
           transforMenu('small');
           show(titleMenuArrowUp);
           show(titleMenuArrowDown);
-          break;
+          return _context6.abrupt("break", 18);
+
+        case 18:
+        case "end":
+          return _context6.stop();
       }
-    }, stepTime);
-    setTimeout(function () {
-      show(titleMenuContent);
-      resolve();
-    }, stepTime * 2);
+    }
   });
 }
 

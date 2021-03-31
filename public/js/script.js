@@ -65,12 +65,15 @@ function initModal(){
 }
 
 async function changePage(){
+    await Promise.all([hide(article),hide(titleMenuContent)])
     await navGoTo(sectionsIndex)
     await getView(sectionsFile[sectionsIndex])
+    changeContent(titleMenuContent,sectionsName[sectionsIndex])
+    show(article)
+    show(titleMenuContent)
     if(sectionsFile[sectionsIndex] == 'portfolio'){
         initModal()
     }
-    changeContent(titleMenuContent,sectionsName[sectionsIndex])
 }
 
 function welcomeAnimation(){
@@ -93,55 +96,51 @@ function welcomeAnimation(){
 }
 
 function hide(element){
-    element.style.transition=`visibility ${stepTime/1000}s, opacity ${stepTime/1000}s linear`;
-    element.style.visibility = 'hidden'
-    element.style.opacity = 0
+    return new Promise((resolve,reject)=>{
+        element.style.transition=`visibility ${stepTime/2/1000}s, opacity ${stepTime/2/1000}s linear`;
+        element.style.visibility = 'hidden'
+        element.style.opacity = 0
+        setTimeout(()=>{
+            resolve()
+        },stepTime/2)
+    })
 }
 
 function show(element){
-    element.style.transition=`visibility 0s, opacity ${stepTime/1000}s linear`;
+    element.style.transition=`visibility 0s, opacity ${stepTime/2/1000}s linear`;
     element.style.visibility='visible'
     element.style.opacity=1
 
 }
 
-function navGoTo(index){
-    return new Promise((resolve,reject)=>{
-        hide(titleMenuContent)
+async function navGoTo(index){
 
-        //handle fast click
-        if(index < 0){
-            index = 0
-        }else if(index > (sectionsName.length-1)){
-            index=sectionsName.length-1
-        }
-        sectionsIndex = index
-        boldAhref(sectionsIndex)
+    //handle fast click
+    if(index < 0){
+        index = 0
+    }else if(index > (sectionsName.length-1)){
+        index=sectionsName.length-1
+    }
+    sectionsIndex = index
+    boldAhref(sectionsIndex)
 
-        //Normal way
-        setTimeout(()=>{
-            switch (index) {
-                case 0 : 
-                    transforMenu('big')
-                    hide(titleMenuArrowUp)
-                    break
-                case (sectionsName.length-1): 
-                    transforMenu('small')
-                    show(titleMenuArrowUp) 
-                    hide(titleMenuArrowDown) 
-                    break
-                default: 
-                    transforMenu('small')
-                    show(titleMenuArrowUp) 
-                    show(titleMenuArrowDown)
-                    break;
-            }
-        },stepTime)
-        setTimeout(()=>{
-            show(titleMenuContent)
-            resolve()
-        },stepTime*2)
-    })
+    //Normal way
+    switch (index) {
+        case 0 : 
+            await hide(titleMenuArrowUp)
+            transforMenu('big')
+            break
+        case (sectionsName.length-1): 
+            transforMenu('small')
+            show(titleMenuArrowUp) 
+            hide(titleMenuArrowDown) 
+            break
+        default: 
+            transforMenu('small')
+            show(titleMenuArrowUp) 
+            show(titleMenuArrowDown)
+            break;
+    }
 }
 
 function transforMenu(size = 'small'){
