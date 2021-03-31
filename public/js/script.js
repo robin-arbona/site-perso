@@ -10,7 +10,6 @@ const titleMenuArrowUp = document.querySelector('.title_menu__arrow--up')
 const mainContent = document.querySelector('.main_content')
 const article = document.querySelector('.article')
 
-
 //_______________________
 // Configuration variables
 //_______________________
@@ -40,7 +39,7 @@ async function init(){
         sectionsIndex--
         changePage(sectionsIndex)
     })
-    section.querySelectorAll('a').forEach(element=>{
+    document.querySelectorAll('a').forEach(element=>{
         if((sectionsFile.indexOf(element.target))>=0){
             element.addEventListener('click',async (e)=>{
                 e.preventDefault()
@@ -49,12 +48,28 @@ async function init(){
             })
         }
     })
-    section.addEventListener('mousewheel',scrollHandeler)
+    section.addEventListener('wheel',scrollHandeler)
+    
+}
+
+function initModal(){
+    const modal = document.querySelector('.modal')
+    const openModalBtn = document.querySelector('.site_preview__btn')
+    hide(modal)
+    openModalBtn.addEventListener('click',()=>{
+        show(modal)
+    })
+    document.querySelector(".modal__close_btn").addEventListener('click',()=>{
+        hide(modal)
+    })
 }
 
 async function changePage(){
     await navGoTo(sectionsIndex)
-    getView(sectionsFile[sectionsIndex])
+    await getView(sectionsFile[sectionsIndex])
+    if(sectionsFile[sectionsIndex] == 'portfolio'){
+        initModal()
+    }
     changeContent(titleMenuContent,sectionsName[sectionsIndex])
 }
 
@@ -102,8 +117,8 @@ function navGoTo(index){
         }
         sectionsIndex = index
         boldAhref(sectionsIndex)
+
         //Normal way
-        
         setTimeout(()=>{
             switch (index) {
                 case 0 : 
@@ -149,11 +164,18 @@ function changeContent(element,content){
 }
 
 function getView(viewName){
-    let pathView='view/'+ viewName.toLowerCase() + '.php'
-    fetch(pathView)
-    .then((response)=>response.text())
-    .then((content)=>{
-        article.innerHTML=content
+    return new Promise((resolve,reject)=>{
+        let pathView='view/'+ viewName.toLowerCase() + '.php'
+        fetch(pathView)
+        .then((response)=>response.text())
+        .then((content)=>{
+            article.innerHTML=content
+            resolve()
+        })
+        .catch(()=>{
+            console.log('Ajax failed')
+            reject()
+        })
     })
 }
 

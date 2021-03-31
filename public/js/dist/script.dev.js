@@ -65,7 +65,7 @@ function init() {
               }
             });
           });
-          section.querySelectorAll('a').forEach(function (element) {
+          document.querySelectorAll('a').forEach(function (element) {
             if (sectionsFile.indexOf(element.target) >= 0) {
               element.addEventListener('click', function _callee3(e) {
                 return regeneratorRuntime.async(function _callee3$(_context3) {
@@ -85,13 +85,25 @@ function init() {
               });
             }
           });
-          section.addEventListener('mousewheel', scrollHandeler);
+          section.addEventListener('wheel', scrollHandeler);
 
         case 7:
         case "end":
           return _context4.stop();
       }
     }
+  });
+}
+
+function initModal() {
+  var modal = document.querySelector('.modal');
+  var openModalBtn = document.querySelector('.site_preview__btn');
+  hide(modal);
+  openModalBtn.addEventListener('click', function () {
+    show(modal);
+  });
+  document.querySelector(".modal__close_btn").addEventListener('click', function () {
+    hide(modal);
   });
 }
 
@@ -104,10 +116,17 @@ function changePage() {
           return regeneratorRuntime.awrap(navGoTo(sectionsIndex));
 
         case 2:
-          getView(sectionsFile[sectionsIndex]);
-          changeContent(titleMenuContent, sectionsName[sectionsIndex]);
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(getView(sectionsFile[sectionsIndex]));
 
         case 4:
+          if (sectionsFile[sectionsIndex] == 'portfolio') {
+            initModal();
+          }
+
+          changeContent(titleMenuContent, sectionsName[sectionsIndex]);
+
+        case 6:
         case "end":
           return _context5.stop();
       }
@@ -209,11 +228,17 @@ function changeContent(element, content) {
 }
 
 function getView(viewName) {
-  var pathView = 'view/' + viewName.toLowerCase() + '.php';
-  fetch(pathView).then(function (response) {
-    return response.text();
-  }).then(function (content) {
-    article.innerHTML = content;
+  return new Promise(function (resolve, reject) {
+    var pathView = 'view/' + viewName.toLowerCase() + '.php';
+    fetch(pathView).then(function (response) {
+      return response.text();
+    }).then(function (content) {
+      article.innerHTML = content;
+      resolve();
+    })["catch"](function () {
+      console.log('Ajax failed');
+      reject();
+    });
   });
 }
 
