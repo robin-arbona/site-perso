@@ -246,9 +246,12 @@ article p {
   width: 100%;
 }
 
-.about li {
-  list-style: "        ";
-  list-style-position: inside;
+.list .ul {
+  transform: translateX(-5vh);
+}
+
+.list li {
+  transform: translateX(5vh);
 }
 
 .ft-white {
@@ -257,4 +260,21 @@ article p {
 
 .ft-normal {
   font-weight: normal;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 50%;
+}
+.form > * {
+  margin-bottom: 3.3333333333vmin;
+  border-radius: 5px;
+  border: solid white;
+  background: transparent;
+  padding: 5px;
+}
+.form input {
+  height: 5vmin;
 }

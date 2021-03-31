@@ -264,13 +264,34 @@ a.selected{
 article p{
     width: 100%;
 }
-.about li{
-    list-style: '        ';
-    list-style-position: inside;
+.list .ul{
+    transform: translateX(-$margin-size);
+
+}
+.list li{
+    transform: translateX($margin-size);
+    
 }
 .ft-white{
     color:white;
 }
 .ft-normal{
     font-weight: normal;
+}
+.form{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 50%;
+    > * {
+        margin-bottom: $margin-size-resp/1.5;
+        border-radius: 5px;
+        border: solid white;
+        background: transparent;
+        padding: 5px;
+    }
+    input {
+        height: $margin-size-resp;
+        
+    }
 }

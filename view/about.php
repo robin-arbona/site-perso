@@ -1,4 +1,4 @@
-<div class="about">
+<div class="list">
     <p><span class="item_tag">&#60;resume&#62;</span>
     <ul>
         <li>freelance wep app and site developer</li>
