@@ -183,7 +183,7 @@ body,html, main{
     justify-content: space-between;
     padding: 3%;
     width: 50%;
-    height: 70%;
+    height: 75%;
     background: radial-gradient(112.34% 112.34% at 50.1% 61.79%, rgba(239, 154, 154, 0.72) 33.57%, #FFFFFF 87.28%);    
     box-shadow: 0px 10px 6px -6px rgba(0, 0, 0, 0.55);
     border-radius: 30px;
@@ -204,9 +204,11 @@ body,html, main{
     }
     &__btn{
         background-color: transparent;
-        width: 2 * $margin-size-resp;
-        height: 2 * $margin-size-resp;
         margin: $margin-size-resp;
+        img {
+            width: 3 * $margin-size-resp;
+            height: 3 * $margin-size-resp;
+        }
     }
 }
 
@@ -220,14 +222,18 @@ body,html, main{
     left: 0;
     background-color: rgba(255,255,255,0.8);
     height: 100%;
+    width: 100%;
     &__close_btn{
+        position: absolute;
+        top: 0;
+        right: 0;
         color:$ft-color-primary;
         align-self: flex-end;
         padding: 1vh;
     }
     &__video{
-        padding: 5vh;
-        width: 100%;
+        margin: $margin-size;
+        height: $main-window-size;
     }
 }
 
@@ -245,6 +251,22 @@ body,html, main{
     &__next-site{
         margin:$margin-size-resp;
     }
+}
+
+//rotate effect
+.rotate{
+    perspective: 400px;
+    transition-duration: $welcome-animation-step-duration ;
+    
+}
+.rotate--0{
+    transform: rotateY(0deg);
+}
+.rotate--90{
+    transform: rotateY(90deg);
+}
+.rotate--m90{
+    transform: rotateY(-90deg);
 }
 
 //Items Style

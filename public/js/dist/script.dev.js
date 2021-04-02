@@ -129,6 +129,7 @@ function changePage() {
           show(titleMenuContent);
 
           if (sectionsFile[sectionsIndex] == 'portfolio') {
+            initCarrousel();
             initModal();
           }
 
@@ -287,4 +288,35 @@ function scrollHandeler(e) {
   setTimeout(function () {
     scrollAllowed = true;
   }, scrollInterval);
+}
+
+function initCarrousel() {
+  var pbtn = document.querySelector('.carrousel__previous-site');
+  var nbtn = document.querySelector('.carrousel__next-site');
+  var card = document.querySelector('.carrousel__content');
+  card.classList.add('rotate');
+  pbtn.addEventListener('click', function () {
+    card.classList.add('rotate--m90');
+    setTimeout(function () {
+      carrouselChangeProject(1);
+      card.classList.remove('rotate--m90');
+    }, stepTime);
+  });
+  nbtn.addEventListener('click', function () {
+    card.classList.add('rotate--90');
+    setTimeout(function () {
+      carrouselChangeProject(1);
+      card.classList.remove('rotate--90');
+    }, stepTime);
+  });
+}
+
+function carrouselChangeProject(projectNumber) {
+  var type = document.querySelector('.carrousel .site-type');
+  var name = document.querySelector('.carrousel .site-name'); //const url = document.querySelector('.carrousel .site-url')
+
+  var video = document.querySelector('.carrousel .site-video');
+  type.textContent = "Vitrine web site";
+  name.textContent = "Top20";
+  video.setAttribute('src', "publiv/video/");
 }

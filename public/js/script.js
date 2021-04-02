@@ -72,6 +72,7 @@ async function changePage(){
     show(article)
     show(titleMenuContent)
     if(sectionsFile[sectionsIndex] == 'portfolio'){
+        initCarrousel()
         initModal()
     }
 }
@@ -201,4 +202,39 @@ function scrollHandeler(e){
     setTimeout(()=>{
         scrollAllowed = true;
     },scrollInterval)
+}
+
+function initCarrousel(){
+    const pbtn = document.querySelector('.carrousel__previous-site')
+    const nbtn = document.querySelector('.carrousel__next-site')
+    const card = document.querySelector('.carrousel__content')
+
+    card.classList.add('rotate')
+
+    pbtn.addEventListener('click',()=>{
+        card.classList.add('rotate--m90')
+        setTimeout(()=>{
+            carrouselChangeProject(1)
+            card.classList.remove('rotate--m90')
+        },stepTime)
+    })
+
+    nbtn.addEventListener('click',()=>{
+        card.classList.add('rotate--90')
+        setTimeout(()=>{
+            carrouselChangeProject(1)
+            card.classList.remove('rotate--90')
+        },stepTime)
+    })
+}
+
+function carrouselChangeProject(projectNumber){
+    const type = document.querySelector('.carrousel .site-type')
+    const name = document.querySelector('.carrousel .site-name')
+    //const url = document.querySelector('.carrousel .site-url')
+    const video = document.querySelector('.carrousel .site-video')
+
+    type.textContent="Vitrine web site"
+    name.textContent="Top20"
+    video.setAttribute('src',"publiv/video/")
 }
