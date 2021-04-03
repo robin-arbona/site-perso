@@ -15,7 +15,8 @@ var article = document.querySelector('.article'); //_______________________
 
 var sectionsName = ['Hi,', 'about', 'portfolio', 'contact'];
 var sectionsFile = ['hi', 'about', 'portfolio', 'contact'];
-var sectionsIndex = 0; // Welcome animation timing
+var sectionsIndex = 0;
+var projectId = 0; // Welcome animation timing
 
 var startTime = 1000;
 var stepTime = 500;
@@ -129,6 +130,7 @@ function changePage() {
           show(titleMenuContent);
 
           if (sectionsFile[sectionsIndex] == 'portfolio') {
+            carrouselChangeProject(projectId);
             initCarrousel();
             initModal();
           }
@@ -261,6 +263,22 @@ function getView(viewName) {
   });
 }
 
+function getProjects() {
+  return new Promise(function (resolve, reject) {
+    fetch('app/Project/getList').then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(response);
+      }
+    }).then(function (content) {
+      resolve(content);
+    })["catch"](function (error) {
+      reject(['Ajax failed', error]);
+    });
+  });
+}
+
 function boldAhref(index) {
   document.querySelectorAll('a').forEach(function (element) {
     element.classList.remove('selected');
@@ -298,25 +316,36 @@ function initCarrousel() {
   pbtn.addEventListener('click', function () {
     card.classList.add('rotate--m90');
     setTimeout(function () {
-      carrouselChangeProject(1);
+      projectId--;
+      carrouselChangeProject(projectId);
       card.classList.remove('rotate--m90');
     }, stepTime);
   });
   nbtn.addEventListener('click', function () {
     card.classList.add('rotate--90');
     setTimeout(function () {
-      carrouselChangeProject(1);
+      projectId++;
+      carrouselChangeProject(projectId);
       card.classList.remove('rotate--90');
     }, stepTime);
   });
 }
 
-function carrouselChangeProject(projectNumber) {
+function carrouselChangeProject(projectid) {
   var type = document.querySelector('.carrousel .site-type');
-  var name = document.querySelector('.carrousel .site-name'); //const url = document.querySelector('.carrousel .site-url')
+  var name = document.querySelector('.carrousel .site-name');
+  var techno = document.querySelector('.carrousel .site-techno'); //const url = document.querySelector('.carrousel .site-url')
 
   var video = document.querySelector('.carrousel .site-video');
-  type.textContent = "Vitrine web site";
-  name.textContent = "Top20";
-  video.setAttribute('src', "publiv/video/");
+  getProjects().then(function (content) {
+    var projectNumber = content.length;
+    projectid = Math.abs(projectid) % projectNumber;
+    var project = content[projectid];
+    type.textContent = project.type;
+    name.textContent = project.name;
+    techno.textContent = project.techno;
+    video.setAttribute('src', "public/video/" + project.video);
+  })["catch"](function (err) {
+    return console.log('No response', err);
+  });
 }

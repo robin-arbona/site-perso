@@ -17,6 +17,7 @@ const article = document.querySelector('.article')
 const sectionsName = ['Hi,','about','portfolio','contact']
 const sectionsFile = ['hi','about','portfolio','contact']
 let sectionsIndex = 0;
+let projectId = 0;
 
 // Welcome animation timing
 let startTime = 1000
@@ -72,6 +73,7 @@ async function changePage(){
     show(article)
     show(titleMenuContent)
     if(sectionsFile[sectionsIndex] == 'portfolio'){
+        carrouselChangeProject(projectId)
         initCarrousel()
         initModal()
     }
@@ -179,6 +181,24 @@ function getView(viewName){
     })
 }
 
+function getProjects(){
+    return new Promise((resolve,reject)=>{
+        fetch('app/Project/getList')
+        .then((response)=>{
+            if(response.ok) {
+                return response.json()
+            } else {
+                throw new Error(response)
+            }})
+        .then((content)=>{
+            resolve(content)
+        })
+        .catch((error)=>{
+            reject(['Ajax failed',error])
+        })
+    })
+}
+
 function boldAhref(index){
     document.querySelectorAll('a').forEach(element=>{
         element.classList.remove('selected')
@@ -214,7 +234,8 @@ function initCarrousel(){
     pbtn.addEventListener('click',()=>{
         card.classList.add('rotate--m90')
         setTimeout(()=>{
-            carrouselChangeProject(1)
+            projectId--
+            carrouselChangeProject(projectId)
             card.classList.remove('rotate--m90')
         },stepTime)
     })
@@ -222,19 +243,31 @@ function initCarrousel(){
     nbtn.addEventListener('click',()=>{
         card.classList.add('rotate--90')
         setTimeout(()=>{
-            carrouselChangeProject(1)
+            projectId++
+            carrouselChangeProject(projectId)
             card.classList.remove('rotate--90')
         },stepTime)
     })
 }
 
-function carrouselChangeProject(projectNumber){
+function carrouselChangeProject(projectid){
     const type = document.querySelector('.carrousel .site-type')
     const name = document.querySelector('.carrousel .site-name')
+    const techno = document.querySelector('.carrousel .site-techno')
+
     //const url = document.querySelector('.carrousel .site-url')
     const video = document.querySelector('.carrousel .site-video')
 
-    type.textContent="Vitrine web site"
-    name.textContent="Top20"
-    video.setAttribute('src',"publiv/video/")
+    getProjects()
+        .then(content=>{
+            let projectNumber = content.length
+            projectid = Math.abs(projectid) % projectNumber
+            let project = content[projectid]
+
+            type.textContent = project.type;
+            name.textContent = project.name;
+            techno.textContent = project.techno;
+            video.setAttribute('src',"public/video/" + project.video)
+        })
+        .catch(err =>console.log('No response',err))
 }

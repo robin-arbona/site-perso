@@ -297,6 +297,10 @@ article p {
   border: solid white;
   background: transparent;
   padding: 5px;
+  transition: 0.5s;
+}
+.form > *:focus {
+  outline: 1px solid black;
 }
 .form input {
   height: 5vmin;

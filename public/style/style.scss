@@ -311,6 +311,10 @@ article p{
         border: solid white;
         background: transparent;
         padding: 5px;
+        transition: $welcome-animation-step-duration;
+        &:focus{
+            outline: 1px solid $ft-color-primary;
+        }
     }
     input {
         height: $margin-size-resp;
