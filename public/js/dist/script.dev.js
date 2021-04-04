@@ -389,9 +389,8 @@ function handleForm() {
   document.querySelectorAll("form > .input").forEach(function (element) {
     data.append(element.getAttribute('name'), element.value);
   });
-  console.log(data);
   postData('app/contact/new', data).then(function (data) {
-    console.log(data); // JSON data parsed by `data.json()` call
+    document.querySelector(".api_msg_bx").textContent = data.msg;
   });
 }
 
@@ -409,9 +408,7 @@ function postData() {
           _context8.next = 4;
           return regeneratorRuntime.awrap(fetch(url, {
             method: 'POST',
-            // *GET, POST, PUT, DELETE, etc.
-            body: data // body data type must match "Content-Type" header
-
+            body: data
           }));
 
         case 4:

@@ -296,19 +296,17 @@ function handleForm(){
     document.querySelectorAll("form > .input").forEach(element => {
         data.append(element.getAttribute('name'), element.value)
     })
-    console.log(data)
     postData('app/contact/new', data)
     .then(data => {
-      console.log(data); // JSON data parsed by `data.json()` call
+        document.querySelector(".api_msg_bx").textContent = data.msg
     });
 }
 
 async function postData(url = '', data = {}) {
-    // Default options are marked with *
     const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: data // body data type must match "Content-Type" header
+      method: 'POST',
+      body: data
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response.json()
   }
   

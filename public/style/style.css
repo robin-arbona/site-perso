@@ -291,7 +291,7 @@ article p {
   flex-wrap: nowrap;
   width: 50%;
 }
-.form > * {
+.form > *:not(p) {
   margin-bottom: 3.3333333333vmin;
   border-radius: 5px;
   border: solid white;
@@ -299,9 +299,14 @@ article p {
   padding: 5px;
   transition: 0.5s;
 }
-.form > *:focus {
+.form > *:not(p):focus {
   outline: 1px solid black;
 }
 .form input {
   height: 5vmin;
+}
+.form p {
+  font-size: 2.0833333333vmin;
+  margin-bottom: 3.3333333333vmin;
+  padding: 5px;
 }

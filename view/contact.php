@@ -1,5 +1,5 @@
-<p class="api_msg_bx"></p>
 <form class="form" action="app/contact/new" method="POST">
+    <p class="api_msg_bx"></p>
     <input class="input" name="name" id="name" type="text" placeholder="Name / Company name" required>
     <input class="input" name="email" id="email" type="email" placeholder="Email" required>
     <input class="input" name="tel" id="tel" type="tel" placeholder="Phone" required>

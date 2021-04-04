@@ -305,7 +305,7 @@ article p{
     flex-direction: column;
     flex-wrap: nowrap;
     width: 50%;
-    > * {
+    > *:not(p) {
         margin-bottom: $margin-size-resp/1.5;
         border-radius: 5px;
         border: solid white;
@@ -319,5 +319,10 @@ article p{
     input {
         height: $margin-size-resp;
         
+    }
+    p {
+        font-size: $a-font-size/1.2;
+        margin-bottom: $margin-size-resp/1.5;
+        padding: 5px;
     }
 }

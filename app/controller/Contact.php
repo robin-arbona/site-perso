@@ -12,20 +12,27 @@ class Contact extends Controller
         $errors = [];
         foreach ($_POST as $key => &$value) {
             $value = htmlspecialchars($value);
+
             $method = 'verify' . ucfirst($key);
             if (method_exists($this, $method)) {
                 if (($msg = $this->$method($value)) === TRUE) {
                     continue;
-                } else {
-                    $errors[] = $msg;
-                    exit(var_dump($errors));
                 }
+            }
+
+            if (empty($value)) {
+                $msg = ucfirst($key) . " is empty, please fill it";
+            }
+
+            if (isset($msg) && ($msg != 1)) {
+                $errors[] = $msg;
+                unset($msg);
             }
         }
         if (empty($errors) && $model->add($_POST, 'Contacts')) {
-            $this->renderJson(['msg' => 'success']);
+            $this->renderJson(['msg' => 'Thank you for contacting me! I will contact you back soon :)']);
         } else {
-            $this->renderJson($errors);
+            $this->renderJson(['msg' => implode('. ', $errors)]);
         }
     }
 
@@ -34,7 +41,7 @@ class Contact extends Controller
         if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             return TRUE;
         } else {
-            return 'Email is invalid.';
+            return 'Your Email is not valid.';
         }
     }
 }
