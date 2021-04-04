@@ -27,7 +27,7 @@ class App
     private function rooter()
     {
         $root = explode('/', $_SERVER['REQUEST_URI']);
-        $root = array_slice($root, array_search('app', $root) + 1);
+        $root = array_slice($root, array_search('index.php', $root) + 1);
 
 
         if (strlen($root[0]) > 0) {
@@ -36,7 +36,8 @@ class App
             if (isset($root[1]) && method_exists($controller, $root[1])) {
                 $method = $root[1];
                 try {
-                    $controller->$method($_POST);
+                    $parameters = isset($root[2]) ? $root[2] : NULL;
+                    $controller->$method($parameters);
                 } catch (\Exception $e) {
                     $controller->renderJson(false, ['code' => $e->getCode(), 'message' => $e->getMessage(), 'file' => $e->getFile(), 'ligne' => $e->getLine()]);
                 }

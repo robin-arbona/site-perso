@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 })
 
 async function init(){
+    document.querySelectorAll('a').forEach(element=>{
+        element.addEventListener('click',(e)=>{
+            e.preventDefault()
+        })
+    })
     await welcomeAnimation()
     getView(sectionsFile[sectionsIndex])
     titleMenuArrowDown.addEventListener('click',async ()=>{
@@ -43,14 +48,12 @@ async function init(){
     document.querySelectorAll('a').forEach(element=>{
         if((sectionsFile.indexOf(element.target))>=0){
             element.addEventListener('click',async (e)=>{
-                e.preventDefault()
                 sectionsIndex = sectionsFile.indexOf(e.target.target)
                 changePage(sectionsIndex)
             })
         }
     })
     section.addEventListener('wheel',scrollHandeler)
-    
 }
 
 function initModal(){
@@ -76,6 +79,9 @@ async function changePage(){
         carrouselChangeProject(projectId)
         initCarrousel()
         initModal()
+    }
+    if(sectionsFile[sectionsIndex] == 'contact'){
+        initContactForm()
     }
 }
 
@@ -181,9 +187,9 @@ function getView(viewName){
     })
 }
 
-function getProjects(){
+function fetchJson($url){
     return new Promise((resolve,reject)=>{
-        fetch('app/Project/getList')
+        fetch($url)
         .then((response)=>{
             if(response.ok) {
                 return response.json()
@@ -198,6 +204,7 @@ function getProjects(){
         })
     })
 }
+
 
 function boldAhref(index){
     document.querySelectorAll('a').forEach(element=>{
@@ -250,7 +257,7 @@ function initCarrousel(){
     })
 }
 
-function carrouselChangeProject(projectid){
+async function carrouselChangeProject(projectId){
     const type = document.querySelector('.carrousel .site-type')
     const name = document.querySelector('.carrousel .site-name')
     const techno = document.querySelector('.carrousel .site-techno')
@@ -258,16 +265,50 @@ function carrouselChangeProject(projectid){
     //const url = document.querySelector('.carrousel .site-url')
     const video = document.querySelector('.carrousel .site-video')
 
-    getProjects()
+    let projectNumber = 0;
+    await fetchJson(`app/project/totalNumber`)
         .then(content=>{
-            let projectNumber = content.length
-            projectid = Math.abs(projectid) % projectNumber
-            let project = content[projectid]
+            projectNumber = Number(content.rows);
+        })
+        .catch(err =>console.log('No response',err))
 
-            type.textContent = project.type;
-            name.textContent = project.name;
-            techno.textContent = project.techno;
-            video.setAttribute('src',"public/video/" + project.video)
+    projectId = Math.abs(projectId) % projectNumber 
+
+    fetchJson(`app/project/getone/${(projectId+1)}`)
+        .then(content=>{
+            type.textContent = content.type;
+            name.textContent = content.name;
+            techno.textContent = content.techno;
+            video.setAttribute('src',"public/video/" + content.video)
         })
         .catch(err =>console.log('No response',err))
 }
+
+function initContactForm(){
+    document.querySelector('#submit').addEventListener('click',(e)=>{
+        e.preventDefault()
+        handleForm()
+    })
+}
+
+function handleForm(){
+    let data = new FormData
+    document.querySelectorAll("form > .input").forEach(element => {
+        data.append(element.getAttribute('name'), element.value)
+    })
+    console.log(data)
+    postData('app/contact/new', data)
+    .then(data => {
+      console.log(data); // JSON data parsed by `data.json()` call
+    });
+}
+
+async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      body: data // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  

@@ -27,11 +27,37 @@ class Model
         $this->table = $this->getTableName();
     }
 
+    public function add(array $data)
+    {
+        $SQL = 'INSERT INTO `contacts` (' . implode(",", array_keys($data)) . ') VALUES (' . implode(',', array_fill(0, count($data), '?')) . ')';
+        return $this->prepare($SQL, $data);
+    }
+
+    public function prepare(string $SQL, array $data)
+    {
+        $sth = $this->db->prepare($SQL);
+        return $sth->execute(array_values($data));
+    }
+
     public function getAll($table = NULL)
     {
         $table = $table != NULL ? $table : $this->table;
         $SQL = "SELECT * FROM $table";
         return $this->fetchAll($SQL);
+    }
+
+    public function getBy($key, $value, $table = NULL)
+    {
+        $table = $table != NULL ? $table : $this->table;
+        $SQL = "SELECT * FROM $table WHERE $key = $value";
+        return $this->fetch($SQL);
+    }
+
+    public function countRows($table = NULL)
+    {
+        $table = $table != NULL ? $table : $this->table;
+        $SQL = "SELECT count(*) rows FROM $table";
+        return $this->fetch($SQL);
     }
 
     public function fetch(string $SQL)

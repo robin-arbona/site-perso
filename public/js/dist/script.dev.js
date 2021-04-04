@@ -31,10 +31,15 @@ function init() {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.next = 2;
+          document.querySelectorAll('a').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+              e.preventDefault();
+            });
+          });
+          _context4.next = 3;
           return regeneratorRuntime.awrap(welcomeAnimation());
 
-        case 2:
+        case 3:
           getView(sectionsFile[sectionsIndex]);
           titleMenuArrowDown.addEventListener('click', function _callee() {
             return regeneratorRuntime.async(function _callee$(_context) {
@@ -73,11 +78,10 @@ function init() {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
                       case 0:
-                        e.preventDefault();
                         sectionsIndex = sectionsFile.indexOf(e.target.target);
                         changePage(sectionsIndex);
 
-                      case 3:
+                      case 2:
                       case "end":
                         return _context3.stop();
                     }
@@ -88,7 +92,7 @@ function init() {
           });
           section.addEventListener('wheel', scrollHandeler);
 
-        case 7:
+        case 8:
         case "end":
           return _context4.stop();
       }
@@ -135,7 +139,11 @@ function changePage() {
             initModal();
           }
 
-        case 10:
+          if (sectionsFile[sectionsIndex] == 'contact') {
+            initContactForm();
+          }
+
+        case 11:
         case "end":
           return _context5.stop();
       }
@@ -263,9 +271,9 @@ function getView(viewName) {
   });
 }
 
-function getProjects() {
+function fetchJson($url) {
   return new Promise(function (resolve, reject) {
-    fetch('app/Project/getList').then(function (response) {
+    fetch($url).then(function (response) {
       if (response.ok) {
         return response.json();
       } else {
@@ -331,21 +339,89 @@ function initCarrousel() {
   });
 }
 
-function carrouselChangeProject(projectid) {
-  var type = document.querySelector('.carrousel .site-type');
-  var name = document.querySelector('.carrousel .site-name');
-  var techno = document.querySelector('.carrousel .site-techno'); //const url = document.querySelector('.carrousel .site-url')
+function carrouselChangeProject(projectId) {
+  var type, name, techno, video, projectNumber;
+  return regeneratorRuntime.async(function carrouselChangeProject$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          type = document.querySelector('.carrousel .site-type');
+          name = document.querySelector('.carrousel .site-name');
+          techno = document.querySelector('.carrousel .site-techno'); //const url = document.querySelector('.carrousel .site-url')
 
-  var video = document.querySelector('.carrousel .site-video');
-  getProjects().then(function (content) {
-    var projectNumber = content.length;
-    projectid = Math.abs(projectid) % projectNumber;
-    var project = content[projectid];
-    type.textContent = project.type;
-    name.textContent = project.name;
-    techno.textContent = project.techno;
-    video.setAttribute('src', "public/video/" + project.video);
-  })["catch"](function (err) {
-    return console.log('No response', err);
+          video = document.querySelector('.carrousel .site-video');
+          projectNumber = 0;
+          _context7.next = 7;
+          return regeneratorRuntime.awrap(fetchJson("app/project/totalNumber").then(function (content) {
+            projectNumber = Number(content.rows);
+          })["catch"](function (err) {
+            return console.log('No response', err);
+          }));
+
+        case 7:
+          projectId = Math.abs(projectId) % projectNumber;
+          fetchJson("app/project/getone/".concat(projectId + 1)).then(function (content) {
+            type.textContent = content.type;
+            name.textContent = content.name;
+            techno.textContent = content.techno;
+            video.setAttribute('src', "public/video/" + content.video);
+          })["catch"](function (err) {
+            return console.log('No response', err);
+          });
+
+        case 9:
+        case "end":
+          return _context7.stop();
+      }
+    }
+  });
+}
+
+function initContactForm() {
+  document.querySelector('#submit').addEventListener('click', function (e) {
+    e.preventDefault();
+    handleForm();
+  });
+}
+
+function handleForm() {
+  var data = new FormData();
+  document.querySelectorAll("form > .input").forEach(function (element) {
+    data.append(element.getAttribute('name'), element.value);
+  });
+  console.log(data);
+  postData('app/contact/new', data).then(function (data) {
+    console.log(data); // JSON data parsed by `data.json()` call
+  });
+}
+
+function postData() {
+  var url,
+      data,
+      response,
+      _args8 = arguments;
+  return regeneratorRuntime.async(function postData$(_context8) {
+    while (1) {
+      switch (_context8.prev = _context8.next) {
+        case 0:
+          url = _args8.length > 0 && _args8[0] !== undefined ? _args8[0] : '';
+          data = _args8.length > 1 && _args8[1] !== undefined ? _args8[1] : {};
+          _context8.next = 4;
+          return regeneratorRuntime.awrap(fetch(url, {
+            method: 'POST',
+            // *GET, POST, PUT, DELETE, etc.
+            body: data // body data type must match "Content-Type" header
+
+          }));
+
+        case 4:
+          response = _context8.sent;
+          return _context8.abrupt("return", response.json());
+
+        case 6:
+        case "end":
+          return _context8.stop();
+      }
+    }
   });
 }

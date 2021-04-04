@@ -4,8 +4,10 @@ namespace controller;
 
 class Controller
 {
-    public function renderJson(bool $success, array $data)
+    public function renderJson($data)
     {
+        $success = !empty($data) ? true : false;
+
         ob_clean();
 
         header_remove();

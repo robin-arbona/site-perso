@@ -9,7 +9,22 @@ class Project extends Controller
     public function getList()
     {
         $model = new Model();
-        $projects = $model->getAll('projects');
-        !empty($projects) ? $this->renderJson(true, $projects) : $this->renderJson(false, $projects);
+        $results = $model->getAll('projects');
+        $this->renderJson($results);
+    }
+
+    public function totalNumber()
+    {
+        $model = new Model();
+        $results = $model->countRows('projects');
+        $this->renderJson($results);
+    }
+
+    public function getOne($id)
+    {
+        $model = new Model();
+        $id = (int) $id;
+        $results = $model->getBy('id', $id, 'projects');
+        $this->renderJson($results);
     }
 }
