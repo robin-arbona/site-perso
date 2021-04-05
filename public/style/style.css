@@ -32,6 +32,9 @@ body, html, main {
   display: flex;
   flex-wrap: wrap;
 }
+.section--portrait {
+  flex-direction: column;
+}
 
 .title_menu {
   width: 100%;
@@ -47,6 +50,14 @@ body, html, main {
   width: 25%;
   transition-duration: 0.5s;
 }
+.title_menu--h50 {
+  height: 50%;
+  transition-duration: 0.5s;
+}
+.title_menu--h25 {
+  height: 25%;
+  transition-duration: 0.5s;
+}
 .title_menu__content {
   position: absolute;
   top: 50%;
@@ -57,9 +68,9 @@ body, html, main {
   font-weight: bold;
   font-size: 30vmin;
   color: black;
+  transition-duration: 0.5s;
 }
 .title_menu__content--vertical {
-  transition-duration: 0.5s;
   transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
 }
 .title_menu__nav {
@@ -68,11 +79,15 @@ body, html, main {
   font-weight: bold;
   font-size: 15vmin;
   color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.title_menu__nav--vertical {
+  position: relative;
   transform: rotateZ(-90deg) translateY(50%);
   transform-origin: bottom left;
-  position: relative;
-  left: 50%;
-  top: 50%;
 }
 .title_menu__arrow {
   position: absolute;
@@ -95,12 +110,24 @@ body, html, main {
   width: 0%;
   overflow: hidden;
 }
+.main_content--portrait {
+  height: 0%;
+  width: 100%;
+}
 .main_content--w50 {
   width: 50%;
   transition-duration: 0.5s;
 }
 .main_content--w75 {
   width: 75%;
+  transition-duration: 0.5s;
+}
+.main_content--h50 {
+  height: 50%;
+  transition-duration: 0.5s;
+}
+.main_content--h75 {
+  height: 75%;
   transition-duration: 0.5s;
 }
 
@@ -164,7 +191,7 @@ body, html, main {
   padding: 3%;
   width: 50%;
   height: 75%;
-  background: radial-gradient(112.34% 112.34% at 50.1% 61.79%, rgba(239, 154, 154, 0.72) 33.57%, #FFFFFF 87.28%);
+  background: rgba(239, 154, 154, 0.5);
   box-shadow: 0px 10px 6px -6px rgba(0, 0, 0, 0.55);
   border-radius: 30px;
   z-index: 3;
@@ -175,8 +202,8 @@ body, html, main {
 .site_preview__title > h3 {
   text-align: center !important;
   margin-bottom: 3.3333333333vmin;
-  text-transform: uppercase;
-  letter-spacing: 1.7647058824vmin;
+  color: #ef9a9a;
+  text-shadow: rgba(0, 0, 0, 0.55);
 }
 .site_preview__title > h4 {
   font-size: 3.75vmin !important;

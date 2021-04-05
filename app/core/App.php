@@ -27,10 +27,12 @@ class App
     private function rooter()
     {
         $root = explode('/', $_SERVER['REQUEST_URI']);
+        if (array_search('index.php', $root) === false) {
+            return;
+        }
         $root = array_slice($root, array_search('index.php', $root) + 1);
 
-
-        if (strlen($root[0]) > 0) {
+        if (isset($root[0])  && (strlen($root[0]) > 0)) {
             $controllerName = 'controller\\' . $root[0];
             $controller = new $controllerName();
             if (isset($root[1]) && method_exists($controller, $root[1])) {

@@ -47,6 +47,9 @@ body,html, main{
         display: flex;
         flex-wrap: wrap;
     }
+    &--portrait{
+        flex-direction: column;
+    }
 }
 
 .title_menu{
@@ -62,6 +65,14 @@ body,html, main{
         width: 25%;
         transition-duration: $welcome-animation-step-duration ;
     }
+    &--h50{
+        height: 50%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
+    &--h25{
+        height: 25%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
     &__content{
         position: absolute;
         top:50%;
@@ -74,8 +85,8 @@ body,html, main{
         font-size: $hi-size;
         color: $ft-color-primary;
 
+        transition-duration: $welcome-animation-step-duration ;
         &--vertical{
-            transition-duration: $welcome-animation-step-duration ;
             transform: rotateZ(-90deg) translateX(50%) translateY(-50%);
         }
     }
@@ -85,11 +96,15 @@ body,html, main{
         font-weight: bold;
         font-size: $hi-size/2;
         color: $ft-color-primary;
-        transform: rotateZ(-90deg) translateY(50%);
-        transform-origin: bottom left;
-        position: relative;
-        left: 50%;
+        position: absolute;
         top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        &--vertical{
+            position: relative;
+            transform: rotateZ(-90deg) translateY(50%);
+            transform-origin: bottom left;
+        }
     }
 
     &__arrow{
@@ -114,12 +129,24 @@ body,html, main{
     height: 100%;
     width: 0%;
     overflow: hidden;
+    &--portrait{
+        height: 0%;
+        width: 100%;
+    }
     &--w50{
         width: 50%;
         transition-duration: $welcome-animation-step-duration ;
     }
     &--w75{
         width: 75%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
+    &--h50{
+        height: 50%;
+        transition-duration: $welcome-animation-step-duration ;
+    }
+    &--h75{
+        height: 75%;
         transition-duration: $welcome-animation-step-duration ;
     }
 }
@@ -135,6 +162,7 @@ body,html, main{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    
 }
 
 .navbar{
@@ -184,7 +212,7 @@ body,html, main{
     padding: 3%;
     width: 50%;
     height: 75%;
-    background: radial-gradient(112.34% 112.34% at 50.1% 61.79%, rgba(239, 154, 154, 0.72) 33.57%, #FFFFFF 87.28%);    
+    background: rgba(239, 154, 154, 0.5) ;    
     box-shadow: 0px 10px 6px -6px rgba(0, 0, 0, 0.55);
     border-radius: 30px;
     z-index: 3;
@@ -194,9 +222,8 @@ body,html, main{
         > h3 {
             text-align: center !important;
             margin-bottom: $margin-size-resp/1.5;
-
-            text-transform: uppercase;
-            letter-spacing: $hi-size/17 ;
+            color:rgba(239, 154, 154, 1) ; 
+            text-shadow: rgba(0, 0, 0, 0.55);
         }
         > h4 {
             font-size: $hi-size/8  !important;

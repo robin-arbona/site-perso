@@ -16,7 +16,8 @@ var article = document.querySelector('.article'); //_______________________
 var sectionsName = ['Hi,', 'about', 'portfolio', 'contact'];
 var sectionsFile = ['hi', 'about', 'portfolio', 'contact'];
 var sectionsIndex = 0;
-var projectId = 0; // Welcome animation timing
+var projectId = 0;
+var screen = 'landscape'; // Welcome animation timing
 
 var startTime = 1000;
 var stepTime = 500;
@@ -36,10 +37,12 @@ function init() {
               e.preventDefault();
             });
           });
-          _context4.next = 3;
+          screenOrientation();
+          window.addEventListener('resize', screenOrientation);
+          _context4.next = 5;
           return regeneratorRuntime.awrap(welcomeAnimation());
 
-        case 3:
+        case 5:
           getView(sectionsFile[sectionsIndex]);
           titleMenuArrowDown.addEventListener('click', function _callee() {
             return regeneratorRuntime.async(function _callee$(_context) {
@@ -92,7 +95,7 @@ function init() {
           });
           section.addEventListener('wheel', scrollHandeler);
 
-        case 8:
+        case 10:
         case "end":
           return _context4.stop();
       }
@@ -158,10 +161,22 @@ function welcomeAnimation() {
     }, startTime);
     setTimeout(function () {
       section.classList.add('section', 'section--m5vh');
+
+      if (screen == 'portrait') {
+        section.classList.add('section--portrait');
+        mainContent.classList.add('main_content--portrait');
+      }
     }, startTime += stepTime);
     setTimeout(function () {
-      titleMenu.classList.add('title_menu--w50');
-      mainContent.classList.add('main_content--w50');
+      if (screen == 'landscape') {
+        titleMenu.classList.add('title_menu--w50');
+        mainContent.classList.add('main_content--w50');
+      } else if (screen == 'portrait') {
+        titleMenu.classList.add('title_menu--h50');
+        mainContent.classList.add('main_content--h50');
+        titleMenuContent.classList.remove('title_menu__content--vertical');
+        titleMenuContent.classList.remove('title_menu__nav--vertical');
+      }
     }, startTime += stepTime);
     setTimeout(function () {
       show(titleMenuArrowDown);
@@ -239,15 +254,31 @@ function transforMenu() {
 
   switch (size) {
     case 'small':
-      titleMenu.classList.replace('title_menu--w50', 'title_menu--w25');
-      titleMenuContent.classList.replace('title_menu__content', 'title_menu__nav');
-      mainContent.classList.replace('main_content--w50', 'main_content--w75');
+      if (screen == 'landscape') {
+        titleMenu.classList.replace('title_menu--w50', 'title_menu--w25');
+        titleMenuContent.classList.replace('title_menu__content', 'title_menu__nav');
+        mainContent.classList.replace('main_content--w50', 'main_content--w75');
+        titleMenuContent.classList.add('title_menu__nav--vertical');
+      } else if (screen == 'portrait') {
+        titleMenu.classList.replace('title_menu--h50', 'title_menu--h25');
+        titleMenuContent.classList.replace('title_menu__content', 'title_menu__nav');
+        mainContent.classList.replace('main_content--h50', 'main_content--h75');
+      }
+
       break;
 
     default:
-      titleMenu.classList.replace('title_menu--w25', 'title_menu--w50');
-      mainContent.classList.replace('main_content--w75', 'main_content--w50');
-      titleMenuContent.classList.replace('title_menu__nav', 'title_menu__content');
+      if (screen == 'landscape') {
+        titleMenu.classList.replace('title_menu--w25', 'title_menu--w50');
+        mainContent.classList.replace('main_content--w75', 'main_content--w50');
+        titleMenuContent.classList.replace('title_menu__nav', 'title_menu__content');
+        titleMenuContent.classList.remove('title_menu__nav--vertical');
+      } else if (screen == 'portrait') {
+        titleMenu.classList.replace('title_menu--h25', 'title_menu--h50');
+        mainContent.classList.replace('main_content--h75', 'main_content--h50');
+        titleMenuContent.classList.replace('title_menu__nav', 'title_menu__content');
+      }
+
       break;
   }
 }
@@ -359,7 +390,9 @@ function carrouselChangeProject(projectId) {
           }));
 
         case 7:
+          console.log('Project number', projectNumber);
           projectId = Math.abs(projectId) % projectNumber;
+          console.log('ProjectID', projectId);
           fetchJson("app/project/getone/".concat(projectId + 1)).then(function (content) {
             type.textContent = content.type;
             name.textContent = content.name;
@@ -369,7 +402,7 @@ function carrouselChangeProject(projectId) {
             return console.log('No response', err);
           });
 
-        case 9:
+        case 11:
         case "end":
           return _context7.stop();
       }
@@ -421,4 +454,15 @@ function postData() {
       }
     }
   });
+}
+
+function screenOrientation() {
+  ratio = window.innerWidth / window.innerHeight;
+  screen = 'landscape';
+
+  if (ratio < 1) {
+    screen = 'portrait';
+  }
+
+  return screen;
 }

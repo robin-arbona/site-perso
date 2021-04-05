@@ -18,6 +18,7 @@ const sectionsName = ['Hi,','about','portfolio','contact']
 const sectionsFile = ['hi','about','portfolio','contact']
 let sectionsIndex = 0;
 let projectId = 0;
+let screen = 'landscape'
 
 // Welcome animation timing
 let startTime = 1000
@@ -35,6 +36,8 @@ async function init(){
             e.preventDefault()
         })
     })
+    screenOrientation()
+    window.addEventListener('resize',screenOrientation)
     await welcomeAnimation()
     getView(sectionsFile[sectionsIndex])
     titleMenuArrowDown.addEventListener('click',async ()=>{
@@ -92,10 +95,22 @@ function welcomeAnimation(){
         },startTime)
         setTimeout(()=>{
             section.classList.add('section','section--m5vh')
+            if(screen == 'portrait'){
+                section.classList.add('section--portrait')
+                mainContent.classList.add('main_content--portrait')
+            }
         },startTime+= stepTime)
         setTimeout(()=>{
-            titleMenu.classList.add('title_menu--w50')
-            mainContent.classList.add('main_content--w50')
+            if(screen == 'landscape'){
+                titleMenu.classList.add('title_menu--w50')
+                mainContent.classList.add('main_content--w50')
+            } else if (screen == 'portrait'){
+                titleMenu.classList.add('title_menu--h50')
+                mainContent.classList.add('main_content--h50')
+                titleMenuContent.classList.remove('title_menu__content--vertical')
+                titleMenuContent.classList.remove('title_menu__nav--vertical')
+            }
+            
         },startTime+= stepTime)
         setTimeout(()=>{
             show(titleMenuArrowDown)
@@ -155,14 +170,28 @@ async function navGoTo(index){
 function transforMenu(size = 'small'){
     switch (size) {
         case 'small':
-            titleMenu.classList.replace('title_menu--w50','title_menu--w25')
-            titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
-            mainContent.classList.replace('main_content--w50','main_content--w75')
+            if(screen == 'landscape'){
+                titleMenu.classList.replace('title_menu--w50','title_menu--w25')
+                titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
+                mainContent.classList.replace('main_content--w50','main_content--w75')
+                titleMenuContent.classList.add('title_menu__nav--vertical')
+            } else if (screen == 'portrait'){
+                titleMenu.classList.replace('title_menu--h50','title_menu--h25')
+                titleMenuContent.classList.replace('title_menu__content','title_menu__nav')
+                mainContent.classList.replace('main_content--h50','main_content--h75')
+            }
             break;
         default:
-            titleMenu.classList.replace('title_menu--w25','title_menu--w50')
-            mainContent.classList.replace('main_content--w75','main_content--w50')
-            titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
+            if(screen == 'landscape'){
+                titleMenu.classList.replace('title_menu--w25','title_menu--w50')
+                mainContent.classList.replace('main_content--w75','main_content--w50')
+                titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
+                titleMenuContent.classList.remove('title_menu__nav--vertical')
+            } else if (screen == 'portrait'){
+                titleMenu.classList.replace('title_menu--h25','title_menu--h50')
+                mainContent.classList.replace('main_content--h75','main_content--h50')
+                titleMenuContent.classList.replace('title_menu__nav','title_menu__content')
+            }
             break;
     }
 }
@@ -272,7 +301,10 @@ async function carrouselChangeProject(projectId){
         })
         .catch(err =>console.log('No response',err))
 
+    console.log('Project number',projectNumber)
     projectId = Math.abs(projectId) % projectNumber 
+    console.log('ProjectID',projectId)
+
 
     fetchJson(`app/project/getone/${(projectId+1)}`)
         .then(content=>{
@@ -310,3 +342,11 @@ async function postData(url = '', data = {}) {
     return response.json()
   }
   
+function screenOrientation(){
+    ratio = window.innerWidth / window.innerHeight
+    screen = 'landscape'
+    if(ratio<1){
+        screen = 'portrait'
+    }
+    return screen
+}

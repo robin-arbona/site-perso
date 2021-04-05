@@ -4,12 +4,10 @@
     </div>
     <div class="carrousel__content site_preview">
         <div class="site_preview__title">
-            <h3>Project</h3>
-            <h4>_type : <span class="ft-white ft-normal site-type">on line shop</span>
+            <h3 class="site-name"></h3>
+            <h4>. type : <span class="ft-white ft-normal site-type"></span>
             </h4>
-            <h4>_name : <span class="ft-white ft-normal site-name">"Joujou Coquin"</span>
-            </h4>
-            <h4>_techno : <span class="ft-white ft-normal site-techno">PhP, Mysql, html5, Bootstrap</span>
+            <h4>. techno : <span class="ft-white ft-normal site-techno"></span>
             </h4>
         </div>
         <div class="site_preview__btn"><img src="public/img/play.svg"></div>
