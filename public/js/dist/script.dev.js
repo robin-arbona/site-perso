@@ -38,7 +38,13 @@ function init() {
             });
           });
           screenOrientation();
-          window.addEventListener('resize', screenOrientation);
+          window.addEventListener('resize', function () {
+            tmpScreen = screen;
+
+            if (tmpScreen != screenOrientation()) {
+              changeStyleForScreenOrientation();
+            }
+          });
           _context4.next = 5;
           return regeneratorRuntime.awrap(welcomeAnimation());
 
@@ -465,4 +471,30 @@ function screenOrientation() {
   }
 
   return screen;
+}
+
+function changeStyleForScreenOrientation() {
+  console.log('changes');
+
+  if (screen == 'portrait') {
+    section.classList.add('section--portrait');
+    titleMenu.classList.replace('title_menu--w50', 'title_menu--h50');
+    titleMenu.classList.replace('title_menu--w25', 'title_menu--h25');
+    mainContent.classList.replace('main_content--w50', 'main_content--h50');
+    mainContent.classList.replace('main_content--w75', 'main_content--h75');
+    mainContent.classList.add('main_content--portrait');
+    titleMenuContent.classList.remove('title_menu__content--vertical');
+    titleMenuContent.classList.remove('title_menu__nav--vertical');
+  } else if (screen = 'landscape') {
+    section.classList.remove('section--portrait');
+    titleMenu.classList.replace('title_menu--h50', 'title_menu--w50');
+    titleMenu.classList.replace('title_menu--h25', 'title_menu--w25');
+    mainContent.classList.replace('main_content--h50', 'main_content--w50');
+    mainContent.classList.replace('main_content--h75', 'main_content--w75');
+    mainContent.classList.remove('main_content--portrait');
+    titleMenuContent.classList.add('title_menu__content--vertical');
+    titleMenuContent.classList.add('title_menu__nav--vertical');
+  }
+
+  changePage();
 }
