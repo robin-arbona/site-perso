@@ -396,9 +396,7 @@ function carrouselChangeProject(projectId) {
           }));
 
         case 7:
-          console.log('Project number', projectNumber);
           projectId = Math.abs(projectId) % projectNumber;
-          console.log('ProjectID', projectId);
           fetchJson("app/project/getone/".concat(projectId + 1)).then(function (content) {
             type.textContent = content.type;
             name.textContent = content.name;
@@ -408,7 +406,7 @@ function carrouselChangeProject(projectId) {
             return console.log('No response', err);
           });
 
-        case 11:
+        case 9:
         case "end":
           return _context7.stop();
       }
@@ -474,8 +472,6 @@ function screenOrientation() {
 }
 
 function changeStyleForScreenOrientation() {
-  console.log('changes');
-
   if (screen == 'portrait') {
     section.classList.add('section--portrait');
     titleMenu.classList.replace('title_menu--w50', 'title_menu--h50');

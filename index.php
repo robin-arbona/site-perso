@@ -23,8 +23,8 @@
                 <a target="hi" class="selected" href="#hi">ARBONA Robin</a>
             </div>
             <ul class="navbar navbar_main__link">
-                <li><a target="about" href="#about">about</a></li>
-                <li><a target="portfolio" href="#portfolio">portfolio</a></li>
+                <li><a target="about" href="#about" rel="canonical">about</a></li>
+                <li><a target="portfolio" href="#portfolio" rel="canonical">portfolio</a></li>
                 <li><a target="contact" href="#contact">contact</a></li>
             </ul>
         </nav>

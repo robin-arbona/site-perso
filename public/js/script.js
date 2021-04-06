@@ -306,9 +306,7 @@ async function carrouselChangeProject(projectId){
         })
         .catch(err =>console.log('No response',err))
 
-    console.log('Project number',projectNumber)
     projectId = Math.abs(projectId) % projectNumber 
-    console.log('ProjectID',projectId)
 
 
     fetchJson(`app/project/getone/${(projectId+1)}`)
@@ -357,7 +355,6 @@ function screenOrientation(){
 }
 
 function changeStyleForScreenOrientation(){
-    console.log('changes')
     if(screen == 'portrait'){
         section.classList.add('section--portrait')
 
