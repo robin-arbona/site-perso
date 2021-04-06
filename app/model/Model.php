@@ -14,11 +14,15 @@ class Model
     protected $dbname = 'site-perso';
     protected $password = '';
     protected $table;
+    protected $port = '3306';
+    //protected $login = 'web-user';
+    //protected $dbname = 'robin-arbona_site-perso';
+    //protected $password = 'web-user-o8GBhuzo';
 
     public function __construct()
     {
         try {
-            $db = new PDO("mysql:host=localhost;dbname={$this->dbname}", $this->login, $this->password);
+            $db = new PDO("mysql:host={$this->host};port={$this->port};dbname={$this->dbname}", $this->login, $this->password);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die($e->getMessage());

@@ -33,7 +33,7 @@ class App
         $root = array_slice($root, array_search('index.php', $root) + 1);
 
         if (isset($root[0])  && (strlen($root[0]) > 0)) {
-            $controllerName = 'controller\\' . $root[0];
+            $controllerName = 'controller\\' . ucfirst($root[0]);
             $controller = new $controllerName();
             if (isset($root[1]) && method_exists($controller, $root[1])) {
                 $method = $root[1];

@@ -1,5 +1,6 @@
 RewriteEngine On
 RewriteBase /site-perso/app/index.php
+# RewriteBase /app/index.php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ $1 [QSA,L,R=307]
