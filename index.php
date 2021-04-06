@@ -9,11 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
     <title>Robin ARBONA portfolio</title>
-    <meta name="description" value="I'm Robin ARBONA, freelance web developper fullstack, take a look at my portfolio (HTML / CSS / PHP / JAVASCRIPT / MYSQL ...)">
+    <meta name="description" content="I'm Robin ARBONA, freelance web developper fullstack, take a look at my portfolio (HTML / CSS / PHP / JAVASCRIPT / MYSQL ...)">
     <meta property="og:title" content="Robin ARBONA portfolio" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://robin-arbona.students-laplateforme.io/" />
     <meta property="og:image" content="https://robin-arbona.students-laplateforme.io/public/img/favicon.svg" />
+    <link rel="icon" type="image/svg" href="public/img/favicon.svg">
 </head>
 
 <body>
