@@ -156,7 +156,7 @@ body,html, main{
     font-family: $ft-family-primary;
     font-style: normal;
     font-weight: normal;
-    font-size: $hi-size/6.5;
+    font-size: $hi-size/9;
     padding: $margin-size;
     display: flex;
     flex-wrap: wrap;
@@ -351,4 +351,9 @@ article p{
         margin-bottom: $margin-size-resp/1.5;
         padding: 5px;
     }
+}
+
+#resume{
+    text-align: center;
+    font-weight: bold;
 }

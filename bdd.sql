@@ -1,28 +1,36 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 06, 2021 at 09:44 AM
--- Server version: 5.7.30
--- PHP Version: 7.4.9
+-- Hôte : localhost:3306
+-- Généré le :  mer. 14 avr. 2021 à 16:53
+-- Version du serveur :  5.5.68-MariaDB
+-- Version de PHP :  7.1.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `site-perso`
+-- Base de données :  `robin-arbona_site-perso`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contacts`
+-- Structure de la table `contacts`
 --
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
-  `date` datetime  NULL ,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `tel` varchar(255) NOT NULL,
@@ -32,7 +40,7 @@ CREATE TABLE `contacts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `contacts`
+-- Déchargement des données de la table `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `date`, `name`, `email`, `tel`, `message`, `contacted`, `comments`) VALUES
@@ -54,7 +62,7 @@ INSERT INTO `contacts` (`id`, `date`, `name`, `email`, `tel`, `message`, `contac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `projects`
+-- Structure de la table `projects`
 --
 
 CREATE TABLE `projects` (
@@ -67,42 +75,50 @@ CREATE TABLE `projects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `projects`
+-- Déchargement des données de la table `projects`
 --
 
 INSERT INTO `projects` (`id`, `name`, `url`, `video`, `techno`, `type`) VALUES
-(1, 'Joujou Coquin', '../projects/joujou_coquin/', 'joujou.mov', 'PhP, Mysql, html5, Bootstrap', 'on line shop'),
-(2, 'portfolio robin arbona', '/', 'portfolio.mow', 'Html5, Scss, Javascript, PhP, Mysql (all vanilla)', 'personnel website'),
-(3, 'Top20', '/', '/', 'underconstruction', 'Showcase website');
+(1, 'Joujou Coquin', '../projects/joujou_coquin/', 'joujou.mov', 'PhP, Mysql, html5, CSS, Framework Bootstrap 5, MVC', 'Boutique en ligne'),
+(2, 'to do list', '', 'tdl.mov', 'PhP, HTML5, MySql, JavaScript, Ajax, Css Framework (bulma), MVC ', 'Application de planification'),
+(3, 'Pendu', '', 'pendu.mov', 'PhP, HTML5, CSS, Framework Bulma, MVC', 'Jeu de pendu'),
+(4, 'memory', '', 'memory.mov', 'PhP, SQL, HTML5, CSS, Framework Bootstrap5', 'Jeu Memory'),
+(5, 'portfolio robin arbona', '/', 'portfolio.mov', 'PhP, Html5, Scss, Javascript, AJax, Mysql ', 'personnal website'),
+(6, 'Top20', '/', '/', 'Actuellement en construction', 'Site vitrine intégrant un outil de management du contenu');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `contacts`
+-- Index pour la table `contacts`
 --
 ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `projects`
+-- Index pour la table `projects`
 --
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `contacts`
+-- AUTO_INCREMENT pour la table `contacts`
 --
 ALTER TABLE `contacts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `projects`
+-- AUTO_INCREMENT pour la table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

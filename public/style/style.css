@@ -136,7 +136,7 @@ body, html, main {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 4.6153846154vmin;
+  font-size: 3.3333333333vmin;
   padding: 5vh;
   display: flex;
   flex-wrap: wrap;
@@ -335,4 +335,9 @@ article p {
   font-size: 2.0833333333vmin;
   margin-bottom: 3.3333333333vmin;
   padding: 5px;
+}
+
+#resume {
+  text-align: center;
+  font-weight: bold;
 }
