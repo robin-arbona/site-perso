@@ -32,8 +32,6 @@
         <nav class="navbar navbar_lang">
             <ul class="navbar navbar_lang__link">
                 <li><a class="selected" href="#en">EN.</a></li>
-                <li><a href="#fr">FR.</a></li>
-                <li><a href="#es">ES.</a></li>
             </ul>
         </nav>
     </header>
